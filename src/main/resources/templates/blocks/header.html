@@ -1,0 +1,18 @@
+<div th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand font-italic" href="/">
+                <H3>Car Accidents</H3>
+            </a>
+            <div class="collapse navbar-collapse">
+                <div class="navbar-nav me-auto" style="min-width:800px">
+                    <a class="nav-item nav-link active" href="/">Home</a>
+                    <a class="nav-item nav-link active" th:href="@{/accidents/create}">Add accident</a>
+                </div>
+                <div class="d-flex">
+                    <H5 class="text-white" th:text="${user}"></H5>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
