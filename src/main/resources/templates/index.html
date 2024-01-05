@@ -6,6 +6,28 @@
 <body>
 <div class="container-fluid p-0">
     <header th:insert="blocks/header :: header"></header>
+    <div class="container mt-4">
+        <div class="card my-4 text-center">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th style="width: 25%;">Id</th>
+                    <th style="width: 25%;">Title</th>
+                    <th style="width: 25%;">Description</th>
+                    <th style="width: 25%;">Address</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="accident: ${accidents}">
+                    <td th:text="${accident.id}"></td>
+                    <td th:text="${accident.name}"></td>
+                    <td th:text="${accident.text}"></td>
+                    <td th:text="${accident.address}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 </body>
 <footer th:insert="blocks/footer :: footer"></footer>
