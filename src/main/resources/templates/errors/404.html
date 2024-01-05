@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head th:insert="blocks/head :: head">
+    <title>Error</title>
+</head>
+<body>
+<div class="container-fluid p-0">
+    <header th:insert="blocks/header :: header"></header>
+    <div class="container text-center">
+        <img src="/photos/404.png" class="w-50" alt="No image">
+        <H3 class="text-danger" th:text="${message}"></H3><br><br>
+    </div>
+    <div class="row">
+        <div class="col-5"></div>
+        <div class="col-2">
+            <a class="btn btn-secondary btn-lg w-100 " href="/">Back to Home</a>
+        </div>
+    </div>
+</div>
+</body>
+<footer th:insert="blocks/footer :: footer"></footer>
+</html>

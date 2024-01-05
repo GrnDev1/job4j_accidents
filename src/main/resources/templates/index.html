@@ -19,13 +19,19 @@
                 </thead>
                 <tbody>
                 <tr th:each="accident: ${accidents}">
-                    <td th:text="${accident.id}"></td>
-                    <td th:text="${accident.name}"></td>
-                    <td th:text="${accident.text}"></td>
-                    <td th:text="${accident.address}"></td>
+                    <td th:text="${accident.id}" style="max-width: 100px"></td>
+                    <td style="max-width: 100px">
+                        <a th:text="${accident.name} "
+                           th:href="@{edit/{accidentId}(accidentId=${accident.id})}"> </a>
+                    </td>
+                    <td th:text="${accident.text}" style="max-width: 100px"></td>
+                    <td th:text="${accident.address}" style="max-width: 100px"></td>
                 </tr>
                 </tbody>
             </table>
+        </div>
+        <div class="col-2">
+            <a class="btn btn-secondary w-100" th:href="@{/create}">+ Add accident</a>
         </div>
     </div>
 </div>

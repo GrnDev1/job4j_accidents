@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="blocks/head :: head">
+    <title>Create</title>
+</head>
+<body>
+<div class="container-fluid p-0">
+    <header th:insert="blocks/header :: header"></header>
+    <div class="container mt-4">
+        <form class="mt-3" th:action="@{/update}" method="post" th:object="${accident}">
+            <input type="hidden" name="id" th:field="*{id}">
+            <div class="mb-3">
+                <label for="name" class="form-label"><b>Title</b></label>
+                <input type="text" class="form-control" id="name" name="name" th:field="*{name}"
+                       placeholder="Car Accident ..." required>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label"><b>Description</b></label>
+                <textarea class="form-control" id="description" name="text" rows="10" th:field="*{text}"
+                          placeholder="The car accident resulted ..."></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label"><b>Address</b></label>
+                <textarea class="form-control" id="address" name="address" rows="2" th:field="*{address}"
+                          placeholder="Robert Robertson, 1234 NW Bobcat Lane, St. Robert, MO 65584-5678"></textarea>
+            </div>
+
+            <div class="row">
+                <div class="col-8"></div>
+                <div class="col-2">
+                    <a class="btn btn-danger w-100" href="/">Cancel</a>
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-success text-white w-100" type="submit">Update</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
