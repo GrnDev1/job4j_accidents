@@ -3,10 +3,12 @@ package ru.job4j.accidents.repository;
 import org.springframework.stereotype.Repository;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.AccidentType;
+import ru.job4j.accidents.model.Rule;
 
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -16,10 +18,11 @@ public class MemAccidentRepository implements AccidentRepository {
     private final Map<Integer, Accident> accidents = new ConcurrentHashMap<>();
 
     public MemAccidentRepository() {
-        this.save(new Accident(0, "Accident1", "Text1", "Address1", new AccidentType(1, "Two cars")));
-        this.save(new Accident(0, "Accident2", "Text2", "Address2", new AccidentType(2, "Car and person")));
-        this.save(new Accident(0, "Accident3", "Text3", "Address3", new AccidentType(3, "Car and bike")));
-        this.save(new Accident(0, "Accident4", "Text4", "Address4", new AccidentType(2, "Car and person")));
+        Rule rule = new Rule(1, "Rule 1");
+        this.save(new Accident(0, "Accident1", "Text1", "Address1", new AccidentType(1, "Two cars"), Set.of(rule)));
+        this.save(new Accident(0, "Accident2", "Text2", "Address2", new AccidentType(2, "Car and person"), Set.of(rule)));
+        this.save(new Accident(0, "Accident3", "Text3", "Address3", new AccidentType(3, "Car and bike"), Set.of(rule)));
+        this.save(new Accident(0, "Accident4", "Text4", "Address4", new AccidentType(2, "Car and person"), Set.of(rule)));
     }
 
     @Override
@@ -36,6 +39,7 @@ public class MemAccidentRepository implements AccidentRepository {
             value.setText(accident.getText());
             value.setAddress(accident.getAddress());
             value.setType(accident.getType());
+            value.setRules(accident.getRules());
             return value;
         }) != null;
     }

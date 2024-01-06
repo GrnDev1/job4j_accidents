@@ -30,6 +30,13 @@
                             th:text="${type.name}"></option>
                 </select>
             </div>
+            <div class="col-2">
+                <label for="rules"><b>Rules</b></label>
+                <select class="form-control" id="rules" name="ruleIds" multiple>
+                    <option th:each="rule : ${rules}" th:value="${rule.id}" th:selected="${rule.id==1}"
+                            th:text="${rule.name}"></option>
+                </select>
+            </div>
 
             <div class="row">
                 <div class="col-8"></div>
