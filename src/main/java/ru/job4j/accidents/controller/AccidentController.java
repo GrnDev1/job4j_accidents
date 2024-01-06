@@ -5,8 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.service.AccidentService;
 
@@ -28,8 +28,8 @@ public class AccidentController {
         return "redirect:/";
     }
 
-    @GetMapping("/edit/{id}")
-    public String edit(Model model, @PathVariable int id) {
+    @GetMapping("/edit")
+    public String edit(Model model, @RequestParam int id) {
         Optional<Accident> accidentOptional = accidentService.findById(id);
         if (accidentOptional.isEmpty()) {
             model.addAttribute("message", "Accident with this id is not found");
