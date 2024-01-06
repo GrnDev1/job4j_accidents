@@ -23,6 +23,13 @@
                 <textarea class="form-control" id="address" name="address" rows="2"
                           placeholder="Robert Robertson, 1234 NW Bobcat Lane, St. Robert, MO 65584-5678"></textarea>
             </div>
+            <div class="col-2">
+                <label for="types"><b>Type of accident</b></label>
+                <select class="form-control mt-2" id="types" name="type.id">
+                    <option th:each="type : ${types}" th:value="${type.id}"
+                            th:text="${type.name}"></option>
+                </select>
+            </div>
 
             <div class="row">
                 <div class="col-8"></div>

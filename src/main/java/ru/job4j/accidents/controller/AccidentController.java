@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.service.AccidentService;
+import ru.job4j.accidents.service.AccidentTypeService;
 
 import java.util.Optional;
 
@@ -16,9 +17,11 @@ import java.util.Optional;
 @AllArgsConstructor
 public class AccidentController {
     private final AccidentService accidentService;
+    private final AccidentTypeService accidentTypeService;
 
     @GetMapping("/create")
-    public String viewCreateAccident() {
+    public String viewCreateAccident(Model model) {
+        model.addAttribute("types", accidentTypeService.findAll());
         return "accidents/create";
     }
 
@@ -35,6 +38,7 @@ public class AccidentController {
             model.addAttribute("message", "Accident with this id is not found");
             return "errors/404";
         }
+        model.addAttribute("types", accidentTypeService.findAll());
         model.addAttribute("accident", accidentOptional.get());
         return "accidents/edit";
     }

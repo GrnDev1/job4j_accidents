@@ -2,6 +2,7 @@ package ru.job4j.accidents.repository;
 
 import org.springframework.stereotype.Repository;
 import ru.job4j.accidents.model.Accident;
+import ru.job4j.accidents.model.AccidentType;
 
 import java.util.Collection;
 import java.util.Map;
@@ -15,10 +16,10 @@ public class MemAccidentRepository implements AccidentRepository {
     private final Map<Integer, Accident> accidents = new ConcurrentHashMap<>();
 
     public MemAccidentRepository() {
-        this.save(new Accident(0, "Accident1", "Text1", "Address1"));
-        this.save(new Accident(0, "Accident2", "Text2", "Address2"));
-        this.save(new Accident(0, "Accident3", "Text3", "Address3"));
-        this.save(new Accident(0, "Accident4", "Text4", "Address4"));
+        this.save(new Accident(0, "Accident1", "Text1", "Address1", new AccidentType(1, "Two cars")));
+        this.save(new Accident(0, "Accident2", "Text2", "Address2", new AccidentType(2, "Car and person")));
+        this.save(new Accident(0, "Accident3", "Text3", "Address3", new AccidentType(3, "Car and bike")));
+        this.save(new Accident(0, "Accident4", "Text4", "Address4", new AccidentType(2, "Car and person")));
     }
 
     @Override
@@ -34,6 +35,7 @@ public class MemAccidentRepository implements AccidentRepository {
             value.setName(accident.getName());
             value.setText(accident.getText());
             value.setAddress(accident.getAddress());
+            value.setType(accident.getType());
             return value;
         }) != null;
     }
