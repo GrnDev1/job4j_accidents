@@ -12,15 +12,15 @@ import java.util.Set;
 @Service
 @AllArgsConstructor
 public class SimpleRuleService implements RuleService {
-    private final RuleRepository jdbcRuleRepository;
+    private final RuleRepository hqlRuleRepository;
 
     @Override
     public Collection<Rule> findAll() {
-        return jdbcRuleRepository.findAll();
+        return hqlRuleRepository.findAll();
     }
 
     @Override
     public Set<Rule> findAllById(List<Integer> list) {
-        return jdbcRuleRepository.findAllById(list);
+        return hqlRuleRepository.findAllById(list);
     }
 }
