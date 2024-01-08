@@ -10,10 +10,10 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class SimpleAccidentTypeService implements AccidentTypeService {
-    private final AccidentTypeRepository repository;
+    private final AccidentTypeRepository jdbcAccidentTypeRepository;
 
     @Override
     public List<AccidentType> findAll() {
-        return repository.findAll();
+        return jdbcAccidentTypeRepository.findAll();
     }
 }
