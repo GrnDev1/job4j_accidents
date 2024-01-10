@@ -9,8 +9,8 @@
                     <a class="nav-item nav-link active" href="/">Home</a>
                     <a class="nav-item nav-link active" th:href="@{/create}">Add accident</a>
                 </div>
-                <div class="d-flex">
-                    <H5 class="text-white" th:text="${user}"></H5>
+                <div class="d-flex" th:if="${session.user}">
+                    <H5 class="text-white" th:text="${session.user.username}"></H5>
                 </div>
             </div>
         </div>

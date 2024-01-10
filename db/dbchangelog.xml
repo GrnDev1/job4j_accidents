@@ -9,4 +9,6 @@
     <include file="scripts/004_ddl_create_participates_rules_table.sql" relativeToChangelogFile="true"/>
     <include file="scripts/005_dml_insert_accident_types.sql" relativeToChangelogFile="true"/>
     <include file="scripts/006_dml_insert_rules.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/007_ddl_create_users_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/008_ddl_create_authorities_table.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>
