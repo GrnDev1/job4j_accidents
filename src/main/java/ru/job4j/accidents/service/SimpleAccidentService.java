@@ -1,6 +1,7 @@
 package ru.job4j.accidents.service;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.repository.DataAccidentRepository;
@@ -10,6 +11,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class SimpleAccidentService implements AccidentService {
     private final DataAccidentRepository dataAccidentRepository;
 
@@ -20,7 +22,13 @@ public class SimpleAccidentService implements AccidentService {
 
     @Override
     public boolean update(Accident accident) {
-        return dataAccidentRepository.update(accident);
+        Optional<Accident> accidentOptional = dataAccidentRepository.findById(accident.getId());
+        if (accidentOptional.isEmpty()) {
+            log.error("Accident with this id is not found");
+            return false;
+        }
+        dataAccidentRepository.save(accident);
+        return true;
     }
 
     @Override
