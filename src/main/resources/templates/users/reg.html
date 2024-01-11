@@ -10,10 +10,9 @@
         <div class="row">
             <div class="col-3"></div>
             <div class="col-6">
-                <form class="mt-3" th:action="@{/login}" method="post">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <div class="mb-3 ml-4 col-10" th:if="${errorMessage}">
-                        <p class="text-danger text-center" th:text="${errorMessage}"></p>
+                <form class="mt-3" th:action="@{/reg}" method="post" enctype="multipart/form-data">
+                    <div class="mb-3 ml-4 col-10" th:if="${error}">
+                        <p class="text-danger text-center" th:text="${error}"></p>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label"><b>Email address</b></label>
@@ -26,14 +25,15 @@
                     </div>
                     <div class="mb-3 row">
                         <div class="col-7">
-                            <p>Don't have an account? <span><a th:href="@{/reg}">Sign up</a></span>
+                            <p>Already have an account? <span><a th:href="@{/login}">Log in here</a></span>
                             </p>
                         </div>
                         <div class="col-5">
                             <div class="row">
-                                <div class="col-6"><a class="btn btn-danger w-100" th:href="@{/}">Cancel</a></div>
+                                <div class="col-6"><a class="btn btn-danger w-100"
+                                                      th:href="@{/}">Cancel</a></div>
                                 <div class="col-6">
-                                    <button class="btn btn-primary w-100" type="submit">Log in</button>
+                                    <button class="btn btn-primary w-100" type="submit">Next</button>
                                 </div>
                             </div>
                         </div>
