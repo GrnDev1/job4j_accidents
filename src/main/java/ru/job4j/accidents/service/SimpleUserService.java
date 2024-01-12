@@ -22,11 +22,12 @@ public class SimpleUserService implements UserService {
         user.setEnabled(true);
         user.setPassword(encoder.encode(user.getPassword()));
         user.setAuthority(authorityService.findByAuthority("ROLE_USER"));
-        Optional<User> userOptional = repository.findByUsername(user.getUsername());
-        if (userOptional.isPresent()) {
-            log.error("User with this mail already exists");
-            return Optional.empty();
+        try {
+            repository.save(user);
+            return Optional.of(user);
+        } catch (Exception e) {
+            log.error("User with this mail already exists", e);
         }
-        return Optional.of(repository.save(user));
+        return Optional.empty();
     }
 }
