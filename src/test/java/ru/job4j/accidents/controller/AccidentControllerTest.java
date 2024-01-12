@@ -1,6 +1,7 @@
 package ru.job4j.accidents.controller;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,15 +19,18 @@ import javax.transaction.Transactional;
 import java.util.Optional;
 import java.util.Set;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest(classes = Main.class)
 @AutoConfigureMockMvc
 @Transactional
-@TestPropertySource(locations = "classpath:db.properties")
+@TestPropertySource(locations = "classpath:application.properties")
 class AccidentControllerTest {
     @Autowired
     private MockMvc mockMvc;
@@ -68,5 +72,49 @@ class AccidentControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("message"))
                 .andExpect(view().name("errors/404"));
+    }
+
+    @Test
+    @WithMockUser
+    public void whenPostRequestSaveAccident() throws Exception {
+        this.mockMvc.perform(post("/create")
+                        .param("ruleIds", "1")
+                        .param("ruleIds", "2"))
+                .andDo(print())
+                .andExpect(status().is3xxRedirection());
+        ArgumentCaptor<Accident> argument = ArgumentCaptor.forClass(Accident.class);
+        verify(accidentService).save(argument.capture());
+        assertThat(argument.getValue().getRules().size()).isEqualTo(2);
+    }
+
+    @Test
+    @WithMockUser
+    public void whenPostRequestUpdateAccidentThenSuccess() throws Exception {
+        ArgumentCaptor<Accident> argument = ArgumentCaptor.forClass(Accident.class);
+        when(accidentService.update(argument.capture())).thenReturn(true);
+        this.mockMvc.perform(post("/update")
+                        .param("ruleIds", "1")
+                        .param("ruleIds", "2"))
+                .andDo(print())
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"));
+        verify(accidentService).update(argument.capture());
+        assertThat(argument.getValue().getRules().size()).isEqualTo(2);
+    }
+
+    @Test
+    @WithMockUser
+    public void whenPostRequestUpdateAccidentThenError() throws Exception {
+        ArgumentCaptor<Accident> argument = ArgumentCaptor.forClass(Accident.class);
+        when(accidentService.update(argument.capture())).thenReturn(false);
+        this.mockMvc.perform(post("/update")
+                        .param("ruleIds", "1")
+                        .param("ruleIds", "2"))
+                .andDo(print())
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(view().name("errors/404"))
+                .andExpect(model().attribute("message", "Accident with this id is not found"));
+        verify(accidentService).update(argument.capture());
+        assertThat(argument.getValue().getRules().size()).isEqualTo(2);
     }
 }
